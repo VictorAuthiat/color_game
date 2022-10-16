@@ -8,9 +8,19 @@ jobs:
   compile:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        fqbn:
+          - arduino:avr:uno
+          - arduino:avr:nano
+          - arduino:avr:mega
+          - arduino:avr:micro
+          - arduino:avr:mini
+          - arduino:avr:pro
+
     steps:
       - uses: actions/checkout@v2
       - uses: arduino/compile-sketches@v1
         with:
           sketch-paths: ./game
-          fqbn: 'arduino:avr:uno'
+          fqbn: ${{ matrix.fqbn }}
